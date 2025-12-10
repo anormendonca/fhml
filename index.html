@@ -1,224 +1,134 @@
-import React, { useEffect, useState, useMemo } from "react";
-
-// Minecraft Hosts Manager - Single-file React component
-// - Persistent (localStorage)
-// - Search, sort, add, edit, delete
-// - Columns: Host, RAM, Storage, CPUModel, Notes
-// - CSV export / import
-// Usage: drop into a React app (Create React App / Vite). Tailwind CSS classes used.
-
-export default function MinecraftHostsApp() {
-  const STORAGE_KEY = "mc_hosts_v1";
-
-  const sample = [
-    { id: 1, host: "play.example1.com", ram: "4 GB", storage: "20 GB", cpu: "Intel i5-8400", notes: "Vanilla, low-latency" },
-    { id: 2, host: "pvp.mydomain.net", ram: "8 GB", storage: "50 GB", cpu: "AMD Ryzen 5 3600", notes: "PVP server, plugins" },
-    { id: 3, host: "survival.host.org", ram: "16 GB", storage: "200 GB", cpu: "Intel Xeon E-2236", notes: "Large modpack" },
-  ];
-
-  const [items, setItems] = useState(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : sample;
-    } catch (e) {
-      return sample;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Hosts</title>
+  <style>
+    body {
+      font-family: 'Trebuchet MS', sans-serif;
+      background: url('https://i.imgur.com/2yKxZqM.png');
+      background-size: 128px;
+      margin: 0;
+      padding: 40px;
+      color: #fff;
     }
-  });
-
-  const [query, setQuery] = useState("");
-  const [sortBy, setSortBy] = useState({ key: "host", dir: "asc" });
-  const [editing, setEditing] = useState(null);
-  const [form, setForm] = useState({ host: "", ram: "", storage: "", cpu: "", notes: "" });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
-
-  useEffect(() => {
-    if (!editing) setForm({ host: "", ram: "", storage: "", cpu: "", notes: "" });
-  }, [editing]);
-
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    let list = items.filter((it) => {
-      if (!q) return true;
-      return (
-        it.host.toLowerCase().includes(q) ||
-        (it.ram || "").toLowerCase().includes(q) ||
-        (it.storage || "").toLowerCase().includes(q) ||
-        (it.cpu || "").toLowerCase().includes(q) ||
-        (it.notes || "").toLowerCase().includes(q)
-      );
-    });
-
-    list.sort((a, b) => {
-      const vA = (a[sortBy.key] || "").toString().toLowerCase();
-      const vB = (b[sortBy.key] || "").toString().toLowerCase();
-      if (vA < vB) return sortBy.dir === "asc" ? -1 : 1;
-      if (vA > vB) return sortBy.dir === "asc" ? 1 : -1;
-      return 0;
-    });
-
-    return list;
-  }, [items, query, sortBy]);
-
-  function toggleSort(key) {
-    setSortBy((prev) => {
-      if (prev.key === key) return { key, dir: prev.dir === "asc" ? "desc" : "asc" };
-      return { key, dir: "asc" };
-    });
-  }
-
-  function handleAddOrUpdate(e) {
-    e.preventDefault();
-    if (!form.host.trim()) return alert("Host is required");
-
-    if (editing) {
-      setItems((prev) => prev.map((it) => (it.id === editing ? { ...it, ...form } : it)));
-      setEditing(null);
-    } else {
-      const id = Date.now();
-      setItems((prev) => [{ id, ...form }, ...prev]);
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: rgba(0,0,0,0.75);
+      padding: 25px;
+      border-radius: 12px;
+      border: 3px solid #3a3a3a;
+      box-shadow: 0 0 25px rgba(0,0,0,0.7);
     }
-
-    setForm({ host: "", ram: "", storage: "", cpu: "", notes: "" });
-  }
-
-  function startEdit(item) {
-    setEditing(item.id);
-    setForm({ host: item.host, ram: item.ram, storage: item.storage, cpu: item.cpu, notes: item.notes });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function removeItem(id) {
-    if (!confirm("Delete this host?")) return;
-    setItems((prev) => prev.filter((it) => it.id !== id));
-  }
-
-  function exportCSV() {
-    const header = ["Host", "RAM", "Storage", "CPUModel", "Notes"];
-    const rows = items.map((it) => [it.host, it.ram, it.storage, it.cpu, it.notes]);
-    const csv = [header, ...rows].map((r) => r.map((c) => `"${(c||"").toString().replace(/"/g, '""')}"`).join(",")).join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url; a.download = "mc-hosts.csv"; a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function importCSV(text) {
-    // simple CSV import: assumes 5 columns Host,RAM,Storage,CPUModel,Notes
-    const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-    if (lines.length === 0) return;
-    const data = [];
-    for (let i = 1; i < lines.length; i++) {
-      const parts = parseCSVLine(lines[i]);
-      if (parts.length >= 1) {
-        data.push({ id: Date.now() + i, host: parts[0] || "", ram: parts[1] || "", storage: parts[2] || "", cpu: parts[3] || "", notes: parts[4] || "" });
-      }
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+      text-shadow: 3px 3px 0 #000;
+      color: #7fff00;
     }
-    if (data.length) setItems((prev) => [...data, ...prev]);
-  }
-
-  function parseCSVLine(line) {
-    const result = [];
-    let cur = "";
-    let inQuotes = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') {
-        if (inQuotes && line[i+1] === '"') { cur += '"'; i++; }
-        else inQuotes = !inQuotes;
-        continue;
-      }
-      if (ch === "," && !inQuotes) { result.push(cur); cur = ""; continue; }
-      cur += ch;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
     }
-    result.push(cur);
-    return result.map(s => s.trim());
-  }
+    th, td {
+      padding: 12px;
+      border: 1px solid #444;
+      background: rgba(20,20,20,0.9);
+    }
+    th {
+      background: #2f2f2f;
+      color: #7fff00;
+      text-shadow: 1px 1px #000;
+    }
+    .form-row input {
+      background: #1b1b1b;
+      color: #fff;
+      border: 1px solid #555;
+    }
+    button {
+      cursor: pointer;
+      background: #228b22;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-top: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #2eb82e;
+    }
+    .delete-btn {
+      background: #b30000;
+    }
+    .delete-btn:hover {
+      background: #ff0000;
+    }
+    a { color: #7fff00; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Minecraft Hosts</h1>
 
-  function handleFileImport(e) {
-    const f = e.target.files[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => importCSV(ev.target.result);
-    reader.readAsText(f);
-    e.target.value = null;
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-5xl mx-auto">
-        <header className="mb-6">
-          <h1 className="text-2xl font-semibold">Minecraft Hosts</h1>
-          <p className="text-sm text-gray-600">Add, edit and manage a list of Minecraft hosts (RAM, Storage, CPU model, Notes). Saved to your browser.</p>
-        </header>
-
-        <form onSubmit={handleAddOrUpdate} className="bg-white p-4 rounded shadow mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <input className="p-2 border rounded" placeholder="Host (example: play.example.com)" value={form.host} onChange={(e)=>setForm({...form, host:e.target.value})} />
-            <input className="p-2 border rounded" placeholder="RAM (e.g. 8 GB)" value={form.ram} onChange={(e)=>setForm({...form, ram:e.target.value})} />
-            <input className="p-2 border rounded" placeholder="Storage (e.g. 50 GB)" value={form.storage} onChange={(e)=>setForm({...form, storage:e.target.value})} />
-            <input className="p-2 border rounded md:col-span-2" placeholder="CPU Model (e.g. Ryzen 5 3600)" value={form.cpu} onChange={(e)=>setForm({...form, cpu:e.target.value})} />
-            <input className="p-2 border rounded md:col-span-3" placeholder="Notes" value={form.notes} onChange={(e)=>setForm({...form, notes:e.target.value})} />
-          </div>
-
-          <div className="mt-3 flex gap-2">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded" type="submit">{editing ? "Update" : "Add Host"}</button>
-            {editing && <button type="button" onClick={()=>{setEditing(null); setForm({host:'',ram:'',storage:'',cpu:'',notes:''})}} className="px-4 py-2 border rounded">Cancel</button>}
-            <button type="button" onClick={exportCSV} className="px-4 py-2 border rounded">Export CSV</button>
-            <label className="px-4 py-2 border rounded cursor-pointer">
-              Import CSV
-              <input type="file" accept=".csv" onChange={handleFileImport} className="hidden" />
-            </label>
-            <button type="button" onClick={()=>{ if(confirm('Reset to sample data? This will overwrite your list.')) {localStorage.removeItem(STORAGE_KEY); setItems(sample);} }} className="ml-auto text-sm text-red-600">Reset</button>
-          </div>
-        </form>
-
-        <div className="mb-4 flex gap-2 items-center">
-          <input className="p-2 border rounded flex-1" placeholder="Search host, ram, storage, cpu or notes" value={query} onChange={(e)=>setQuery(e.target.value)} />
-          <div className="text-sm text-gray-600">Total: {items.length}</div>
-        </div>
-
-        <div className="bg-white shadow rounded overflow-x-auto">
-          <table className="min-w-full table-auto">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="p-3 text-left cursor-pointer" onClick={()=>toggleSort('host')}>Host {sortBy.key==='host' ? (sortBy.dir==='asc' ? '▲' : '▼') : ''}</th>
-                <th className="p-3 text-left cursor-pointer" onClick={()=>toggleSort('ram')}>RAM {sortBy.key==='ram' ? (sortBy.dir==='asc' ? '▲' : '▼') : ''}</th>
-                <th className="p-3 text-left cursor-pointer" onClick={()=>toggleSort('storage')}>Storage {sortBy.key==='storage' ? (sortBy.dir==='asc' ? '▲' : '▼') : ''}</th>
-                <th className="p-3 text-left cursor-pointer" onClick={()=>toggleSort('cpu')}>CPU Model {sortBy.key==='cpu' ? (sortBy.dir==='asc' ? '▲' : '▼') : ''}</th>
-                <th className="p-3 text-left">Notes</th>
-                <th className="p-3 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.length === 0 && (
-                <tr><td className="p-4" colSpan={6}>No hosts. Try adding one.</td></tr>
-              )}
-
-              {filtered.map((it) => (
-                <tr key={it.id} className="border-t">
-                  <td className="p-3"><a href={`https://${it.host}`} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">{it.host}</a></td>
-                  <td className="p-3">{it.ram}</td>
-                  <td className="p-3">{it.storage}</td>
-                  <td className="p-3">{it.cpu}</td>
-                  <td className="p-3">{it.notes}</td>
-                  <td className="p-3">
-                    <div className="flex gap-2">
-                      <button onClick={()=>startEdit(it)} className="text-sm px-2 py-1 border rounded">Edit</button>
-                      <button onClick={()=>removeItem(it.id)} className="text-sm px-2 py-1 border rounded text-red-600">Delete</button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <footer className="text-xs text-gray-500 mt-6">Tip: This site stores data in your browser. To publish publicly, put this component in a React app and deploy on GitHub Pages or Vercel.</footer>
-      </div>
+    <div class="form-row">
+      <input id="host" placeholder="Host (example.com)" />
+      <input id="ram" placeholder="RAM (e.g. 8GB)" />
+      <input id="storage" placeholder="Storage (e.g. 50GB)" />
+      <input id="cpu" placeholder="CPU Model" />
+      <input id="notes" placeholder="Notes" />
     </div>
-  );
-}
+    <button onclick="addHost()">Add Host</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>RAM</th>
+          <th>Storage</th>
+          <th>CPU Model</th>
+          <th>Notes</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const tableBody = document.getElementById("tableBody");
+
+    function addHost() {
+      const host = document.getElementById("host").value.trim();
+      const ram = document.getElementById("ram").value.trim();
+      const storage = document.getElementById("storage").value.trim();
+      const cpu = document.getElementById("cpu").value.trim();
+      const notes = document.getElementById("notes").value.trim();
+
+      if (!host) return alert("Host is required");
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><a href="https://${host}" target="_blank">${host}</a></td>
+        <td>${ram}</td>
+        <td>${storage}</td>
+        <td>${cpu}</td>
+        <td>${notes}</td>
+        <td><button class="delete-btn" onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+      `;
+
+      tableBody.appendChild(row);
+
+      document.getElementById("host").value = "";
+      document.getElementById("ram").value = "";
+      document.getElementById("storage").value = "";
+      document.getElementById("cpu").value = "";
+      document.getElementById("notes").value = "";
+    }
+  </script>
+</body>
+</html>
