@@ -9,11 +9,32 @@
         a { color: #0dcaf0; text-decoration: none; }
         a:hover { color: #0ac; text-decoration: underline; }
         .host-list { list-style: none; padding: 0; }
-        .host-item { background-color: #282b30; margin: 10px 0; padding: 16px; border-radius: 12px; }
+        .host-item { 
+            background-color: #282b30; 
+            margin: 10px 0; 
+            padding: 16px; 
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+        .host-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
         .host-item h4 { margin-top: 0; color: #0dcaf0; }
         .host-item p { margin: 4px 0; }
         .host-item img { vertical-align: middle; margin-right: 6px; }
         footer { background-color: #282b30; padding: 20px; margin-top: 20px; border-radius: 12px; text-align: center; }
+        .rating-high { color: #4CAF50; }
+        .rating-medium { color: #FFC107; }
+        .rating-low { color: #f44336; }
+        .note { 
+            background-color: #2d3136; 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            margin-top: 8px; 
+            font-size: 0.9em;
+            border-left: 3px solid #0dcaf0;
+        }
     </style>
 </head>
 <body>
@@ -26,10 +47,11 @@
 <section class="mb-4">
     <h3>Tips:</h3>
     <ul>
+        <li>Free hosts may have limitations on uptime, performance, or features</li>
+        <li>Some hosts require virtual currency farming for better hardware</li>
+        <li>Always check the current status as free plans can change frequently</li>
+        <li>Consider backup options for important worlds</li>
     </ul>
-</section>
-
-<section class="mb-4">
 </section>
 
 <section>
@@ -38,9 +60,13 @@
         <li class="host-item">
             <h4>MineStrator</h4>
             <p><strong>RAM:</strong> 4 GB</p>
-            <p><strong>Storage:</strong> 8 GB</p>
+            <p><strong>Storage:</strong> 4 GB</p>
             <p><strong>Locations:</strong> France</p>
-            <p><strong>Rating:</strong> 4.8★</p>
+            <p><strong>Rating:</strong> <span class="rating-high">4.8★</span></p>
+            <p><strong>Performance:</strong> Single: 301, Multi: 1178</p>
+            <p><strong>CPU:</strong> 3.7GHz (EPYC 7543P)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Website not fully translated to English</div>
             <p><a href="#" target="_blank">Get Started</a></p>
         </li>
 
@@ -49,7 +75,7 @@
             <p><strong>RAM:</strong> 6 GB</p>
             <p><strong>Storage:</strong> 20 GB</p>
             <p><strong>Locations:</strong> Finland Canada</p>
-            <p><strong>Rating:</strong> 4.6★</p>
+            <p><strong>Rating:</strong> <span class="rating-high">4.6★</span></p>
             <p><a href="#" target="_blank">Get Started</a></p>
         </li>
 
@@ -58,7 +84,7 @@
             <p><strong>RAM:</strong> 4.8 GB</p>
             <p><strong>Storage:</strong> 9.7 GB</p>
             <p><strong>Locations:</strong> Germany</p>
-            <p><strong>Rating:</strong> 4.5★</p>
+            <p><strong>Rating:</strong> <span class="rating-high">4.5★</span></p>
             <p><a href="#" target="_blank">Get Started</a></p>
         </li>
 
@@ -67,11 +93,407 @@
             <p><strong>RAM:</strong> 3 GB</p>
             <p><strong>Storage:</strong> 5 GB</p>
             <p><strong>Locations:</strong> Finland Germany USA</p>
-            <p><strong>Rating:</strong> 4.5★</p>
+            <p><strong>Rating:</strong> <span class="rating-high">4.5★</span></p>
             <p><a href="#" target="_blank">Get Started</a></p>
         </li>
 
-        <!-- Add more hosts here as needed -->
+        <li class="host-item">
+            <h4>MCProhosting</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> ~4 GB</p>
+            <p><strong>Locations:</strong> Unknown</p>
+            <p><strong>Rating:</strong> <span class="rating-high">4.8★</span></p>
+            <p><strong>CPU:</strong> 3.8GHz (Ryzen 7 PRO 1700X)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Currently out of stock on this item so orders for it have been suspended until more stock is available.</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>ServerTux</h4>
+            <p><strong>RAM:</strong> 1GB+</p>
+            <p><strong>Storage:</strong> 30 GB</p>
+            <p><strong>Locations:</strong> USA</p>
+            <p><strong>Rating:</strong> <span class="rating-high">4.7★</span></p>
+            <p><strong>CPU:</strong> 4.9GHz (AMD Ryzen 5950X)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Virtual currency that can be used for better hardware. Out of Stock (08/07/24)</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>DataHosting</h4>
+            <p><strong>RAM:</strong> 1+ GB</p>
+            <p><strong>Storage:</strong> 1+ GB</p>
+            <p><strong>Locations:</strong> France</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.4★</span></p>
+            <p><strong>CPU:</strong> 3.3GHz (Xeon E5 2670 V2)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">French website</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>SneakyHub</h4>
+            <p><strong>RAM:</strong> 2+ GB</p>
+            <p><strong>Storage:</strong> 10+ GB</p>
+            <p><strong>Locations:</strong> USA</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.4★</span></p>
+            <p><strong>CPU:</strong> 4.9GHz (Ryzen 9 5950x)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Virtual currency that can be used for better hardware</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>MineFort</h4>
+            <p><strong>RAM:</strong> 1 GB</p>
+            <p><strong>Storage:</strong> 10 GB</p>
+            <p><strong>Locations:</strong> Unknown</p>
+            <p><strong>Rating:</strong> <span class="rating-high">4.5★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>FalixNodes</h4>
+            <p><strong>RAM:</strong> 4.5 GB (Dynamic)</p>
+            <p><strong>Storage:</strong> 10 GB</p>
+            <p><strong>Locations:</strong> Germany</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.2★</span></p>
+            <p><strong>CPU:</strong> 3.9GHz (Xeon Gold 5412U)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Coming soon</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>GodLikeHosting</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> 10.0 GB</p>
+            <p><strong>Locations:</strong> Ukraine</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.3★</span></p>
+            <p><strong>CPU:</strong> 4.9GHz (Ryzen 9 5950X)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Coming soon</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>EUGameHosting</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> Unlimited</p>
+            <p><strong>Locations:</strong> Germany/UK</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.3★</span></p>
+            <p><strong>CPU:</strong> 5.80GHz (i9-13900K)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Valid CC required. Uses AMP panel</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>ScalaCube</h4>
+            <p><strong>RAM:</strong> 6 GB</p>
+            <p><strong>Storage:</strong> 21 GB</p>
+            <p><strong>Locations:</strong> Unknown</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.3★</span></p>
+            <p><strong>CPU:</strong> 3.4GHz (Intel Xeon/AMD ?)</p>
+            <p><strong>Panel:</strong> Unknown</p>
+            <div class="note">Only Vanilla and Snapshots Minecraft</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Server.Pro</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> 5 GB</p>
+            <p><strong>Locations:</strong> France/Canada</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.3★</span></p>
+            <p><strong>CPU:</strong> 2.9GHz (Epyc 7351P)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>AxentHosting</h4>
+            <p><strong>RAM:</strong> 2+ GB</p>
+            <p><strong>Storage:</strong> 5+ GB</p>
+            <p><strong>Locations:</strong> Germany/USA</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.9★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Scalable hosting provider thru virtual coins</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>MagmaNode</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> 5 GB</p>
+            <p><strong>Locations:</strong> Germany</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.0★</span></p>
+            <p><strong>CPU:</strong> 5.7GHz (Ryzen 9 7950X 3D)</p>
+            <p><strong>Panel:</strong> Unknown</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>BBN</h4>
+            <p><strong>RAM:</strong> 2+ GB</p>
+            <p><strong>Storage:</strong> 2.5 GB</p>
+            <p><strong>Locations:</strong> Germany/Finland/India</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.0★</span></p>
+            <p><strong>CPU:</strong> 5.4GHz (Ryzen 9 7945HX)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Scalable hosting provider thru virtual coins</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Nether.Host</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> 10 GB</p>
+            <p><strong>Locations:</strong> USA/Singapore/India</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.8★</span></p>
+            <p><strong>CPU:</strong> 4,3GHz (Ryzen 3 3300x)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>HostingmitHerz</h4>
+            <p><strong>RAM:</strong> 4+ GB</p>
+            <p><strong>Storage:</strong> 30 GB</p>
+            <p><strong>Locations:</strong> Germany</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.8★</span></p>
+            <p><strong>CPU:</strong> 3.9GHz (Xeon E5-1650v2)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Get servers in the discord by creating a ticket</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>FreeMCServer</h4>
+            <p><strong>RAM:</strong> 1.5+ GB</p>
+            <p><strong>Storage:</strong> 10 GB</p>
+            <p><strong>Locations:</strong> USA/Germany/France</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.7★</span></p>
+            <p><strong>CPU:</strong> 3.35GHz (EPYC 7502P)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Virtual currency that can be used for better hardware</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>ScarceHosting</h4>
+            <p><strong>RAM:</strong> 1.5 GB</p>
+            <p><strong>Storage:</strong> 2 GB</p>
+            <p><strong>Locations:</strong> Britain</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.7★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">ALSO KNOWN AS LimeNodes</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Galactiq</h4>
+            <p><strong>RAM:</strong> 3 GB</p>
+            <p><strong>Storage:</strong> 10.0 GB</p>
+            <p><strong>Locations:</strong> USA/Germany</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.4★</span></p>
+            <p><strong>CPU:</strong> 3.46GHz (Xeon X3460)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>FPS.ms</h4>
+            <p><strong>RAM:</strong> 4 GB</p>
+            <p><strong>Storage:</strong> 5 GB</p>
+            <p><strong>Locations:</strong> USA/Germany/Finland</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.4★</span></p>
+            <p><strong>CPU:</strong> 5GHz (I9-9900K)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">New hosting service seeking for feedback</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>MooNodes</h4>
+            <p><strong>RAM:</strong> 6 GB</p>
+            <p><strong>Storage:</strong> 30 GB</p>
+            <p><strong>Locations:</strong> Germany/Austria</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.0★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>SliceHosting</h4>
+            <p><strong>RAM:</strong> 4 GB</p>
+            <p><strong>Storage:</strong> 8 GB</p>
+            <p><strong>Locations:</strong> USA/UK/Germany</p>
+            <p><strong>Rating:</strong> <span class="rating-medium">4.0★</span></p>
+            <p><strong>CPU:</strong> 4.3GHz (Ryzen 9 3900)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Virtual currency that can be used for better hardware</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>CreeperCloud</h4>
+            <p><strong>RAM:</strong> 2+ GB</p>
+            <p><strong>Storage:</strong> 2+ GB</p>
+            <p><strong>Locations:</strong> France</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>CPU:</strong> 3.0GHz (EPYC 7401P)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Gaming4Free</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> 5 GB</p>
+            <p><strong>Locations:</strong> Germany/Finland</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>CPU:</strong> 5GHz (I9-9900k)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Also known as skynode.pro</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Optiklink</h4>
+            <p><strong>RAM:</strong> 1 GB</p>
+            <p><strong>Storage:</strong> 4 GB</p>
+            <p><strong>Locations:</strong> USA/Japan/Germany</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>CPU:</strong> 5.2GHz (i9-12900K)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Host2Play</h4>
+            <p><strong>RAM:</strong> 3 GB</p>
+            <p><strong>Storage:</strong> 2 GB</p>
+            <p><strong>Locations:</strong> Germany/Britain/Sweden</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Up to 300% for CPU</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>SkyMC</h4>
+            <p><strong>RAM:</strong> 3 GB</p>
+            <p><strong>Storage:</strong> 4 GB</p>
+            <p><strong>Locations:</strong> Netherlands</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>CPU:</strong> 4.9GHz (Ryzen 9 5950x)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>MisatoHost</h4>
+            <p><strong>RAM:</strong> 4 GB</p>
+            <p><strong>Storage:</strong> 5 GB</p>
+            <p><strong>Locations:</strong> Belgium</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Ukrainian speaking website and Discord</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>OracleCloud</h4>
+            <p><strong>RAM:</strong> 24 GB</p>
+            <p><strong>Storage:</strong> 20 GB</p>
+            <p><strong>Locations:</strong> All Regions</p>
+            <p><strong>Rating:</strong> <span class="rating-low">1.4★</span></p>
+            <p><strong>CPU:</strong> 3.0GHz (1-4x Ampere Altra)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No Game Panel. User has complete control of server</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>GoogleCloud</h4>
+            <p><strong>RAM:</strong> 8 GB</p>
+            <p><strong>Storage:</strong> 10 GB</p>
+            <p><strong>Locations:</strong> All regions</p>
+            <p><strong>Rating:</strong> <span class="rating-low">1.8★</span></p>
+            <p><strong>CPU:</strong> 3.3GHz (EPYC 7B12)</p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No Game Panel. User has not complete control of server</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Aternos</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> Personal Google Drive</p>
+            <p><strong>Locations:</strong> Germany</p>
+            <p><strong>Rating:</strong> <span class="rating-low">2.6★</span></p>
+            <p><strong>CPU:</strong> 3.9GHz (i7/Xeon)</p>
+            <p><strong>Panel:</strong> Unknown</p>
+            <div class="note">Coming soon</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>GithubCodespaces</h4>
+            <p><strong>RAM:</strong> 16 GB</p>
+            <p><strong>Storage:</strong> 32 GB</p>
+            <p><strong>Locations:</strong> Unknown</p>
+            <p><strong>Rating:</strong> <span class="rating-low">2.9★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No panels</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>SuperHub</h4>
+            <p><strong>RAM:</strong> 2 GB</p>
+            <p><strong>Storage:</strong> 3 GB</p>
+            <p><strong>Locations:</strong> Russia</p>
+            <p><strong>Rating:</strong> <span class="rating-low">3.6★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Russian website</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>SlimeNodes</h4>
+            <p><strong>RAM:</strong> 1.5 GB</p>
+            <p><strong>Storage:</strong> 6 GB</p>
+            <p><strong>Locations:</strong> USA</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">Uses the typical coin system found on similar hosts</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>MineHost</h4>
+            <p><strong>RAM:</strong> ~</p>
+            <p><strong>Storage:</strong> ~</p>
+            <p><strong>Locations:</strong> Unknown</p>
+            <p><strong>Rating:</strong> <span class="rating-low">0★</span></p>
+            <p><strong>Panel:</strong> Yes</p>
+            <div class="note">No information</div>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
     </ul>
 </section>
 
