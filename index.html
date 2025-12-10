@@ -1,263 +1,88 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+    <meta charset="UTF-8">
     <title>FMHL - Free Minecraft Hosters List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="logos/FMHL.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logos/FMHL.png">
     <style>
-        body { font-family: 'DM Sans', sans-serif; background-color: #1f2124; color: white; }
-        .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-        @media(max-width:1600px){ .grid-container{grid-template-columns: repeat(3, 1fr); } }
-        @media(max-width:1200px){ .grid-container{grid-template-columns: repeat(2, 1fr); } }
-        @media(max-width:800px){ .grid-container{grid-template-columns: repeat(1, 1fr); } }
-        .container { background-color:#282b30; padding: 16px; border-radius: 12px; }
-        .title { font-size: 20px; color: white; }
-        .text-line span { margin-right: 6px; }
-        .text-highlight { color: #0dcaf0; }
-        .rating span { margin-left: 6px; color: #ffc107; }
-        footer { background-color:#282b30; color:white; padding: 20px; border-radius: 15px; }
-        .btn-secondary { background-color:#2d3238; border:none; }
-        .btn-secondary:hover { background-color:#3b3f45; }
-        #filter-options select, #filter-options input { background-color:#2d3238; color:white; border:none; }
+        body { background-color: #1f2124; color: white; font-family: Arial, sans-serif; }
+        a { color: #0dcaf0; text-decoration: none; }
+        a:hover { color: #0ac; text-decoration: underline; }
+        .host-list { list-style: none; padding: 0; }
+        .host-item { background-color: #282b30; margin: 10px 0; padding: 16px; border-radius: 12px; }
+        .host-item h4 { margin-top: 0; color: #0dcaf0; }
+        .host-item p { margin: 4px 0; }
+        .host-item img { vertical-align: middle; margin-right: 6px; }
+        footer { background-color: #282b30; padding: 20px; margin-top: 20px; border-radius: 12px; text-align: center; }
     </style>
 </head>
 <body>
 
-<div id="floatingElement" class="bg-dark p-2 mb-2">
-    <img src="flags/Flag.svg" alt="Icon"> 
-    <span>Stands for all locations.</span>
-</div>
+<header class="text-center my-4">
+    <h1>FMHL - Free Minecraft Hosts List</h1>
+    <p>Indexed by Myuui & the community</p>
+</header>
 
-<div id="floatingElement2" class="bg-dark p-2 mb-2">
-    <img src="flags/Check.svg" alt="Icon"> 
-    <span>Last Updated 07 / 27 / 2025</span>
-</div>
+<section class="mb-4">
+    <h3>Tips:</h3>
+    <ul>
+        <li><strong>CPU Clock Myth:</strong> Compare CPUs by architecture & single-core performance, not GHz.</li>
+        <li><strong>RAM:</strong> More RAM does not always mean better server performance.</li>
+    </ul>
+</section>
 
-<main class="container mb-4">
-    <h1 class="text-center mb-3">FMHL - Free Minecraft Hosts List</h1>
-    <h5 class="text-center mb-4">Indexed by Myuui & the community!</h5>
+<section class="mb-4">
+    <h3>Join our Discord:</h3>
+    <a href="https://discord.gg/QmgAFzasaP" class="btn btn-secondary">Join Discord</a>
+</section>
 
-    <!-- Filters -->
-    <div id="filter-options" class="mb-4 p-3" style="background-color:#282b30; border-radius:12px;">
-        <div class="mb-3">
-            <input type="text" id="search-input" class="form-control" placeholder="Search by title...">
-        </div>
-        <div class="row mb-3">
-            <div class="col">
-                <label>Min RAM:</label>
-                <select id="ram-filter" class="form-select">
-                    <option value="0">Any</option>
-                    <option value="1">1 GB+</option>
-                    <option value="2">2 GB+</option>
-                    <option value="4">4 GB+</option>
-                    <option value="6">6 GB+</option>
-                    <option value="8">8 GB+</option>
-                </select>
-            </div>
-            <div class="col">
-                <label>Min Storage:</label>
-                <select id="storage-filter" class="form-select">
-                    <option value="0">Any</option>
-                    <option value="2">2 GB+</option>
-                    <option value="4">4 GB+</option>
-                    <option value="10">10 GB+</option>
-                    <option value="25">25 GB+</option>
-                </select>
-            </div>
-            <div class="col">
-                <label>Min Stars:</label>
-                <select id="star-filter" class="form-select">
-                    <option value="0">Any</option>
-                    <option value="2.5">2.5+</option>
-                    <option value="3.5">3.5+</option>
-                    <option value="4">4+</option>
-                </select>
-            </div>
-            <div class="col">
-                <label>Min Cores %:</label>
-                <select id="cores-filter" class="form-select">
-                    <option value="0">Any</option>
-                    <option value="100">100%</option>
-                    <option value="125">125%</option>
-                    <option value="150">150%</option>
-                    <option value="200">200%</option>
-                </select>
-            </div>
-        </div>
-        <div class="mb-3">
-            <label>Locations:</label>
-            <div class="dropdown">
-                <button class="btn btn-secondary w-100 dropdown-toggle" type="button" id="locationDropdown" data-bs-toggle="dropdown">
-                    Select Locations
-                </button>
-                <ul class="dropdown-menu bg-dark p-2" id="location-options">
-                    <li><label><input type="checkbox" class="location-check" value="Germany"> Germany</label></li>
-                    <li><label><input type="checkbox" class="location-check" value="France"> France</label></li>
-                    <li><label><input type="checkbox" class="location-check" value="USA"> USA</label></li>
-                    <li><label><input type="checkbox" class="location-check" value="Finland"> Finland</label></li>
-                    <li><label><input type="checkbox" class="location-check" value="India"> India</label></li>
-                    <li><label><input type="checkbox" class="location-check" value="Singapore"> Singapore</label></li>
-                    <li><label><input type="checkbox" class="location-check" value="UK"> United Kingdom</label></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<section>
+    <h2>Host List</h2>
+    <ul class="host-list">
+        <li class="host-item">
+            <h4>MineStrator</h4>
+            <p><strong>RAM:</strong> 4 GB</p>
+            <p><strong>Storage:</strong> 8 GB</p>
+            <p><strong>Locations:</strong> <img src="flags/France.svg" height="24"> France</p>
+            <p><strong>Rating:</strong> 4.8★</p>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
 
-    <!-- Host list -->
-    <div class="grid-container" id="host-list"></div>
-</main>
+        <li class="host-item">
+            <h4>Eternal Zero</h4>
+            <p><strong>RAM:</strong> 6 GB</p>
+            <p><strong>Storage:</strong> 20 GB</p>
+            <p><strong>Locations:</strong> <img src="flags/Finland.svg" height="24"> Finland <img src="flags/Canada.svg" height="24"> Canada</p>
+            <p><strong>Rating:</strong> 4.6★</p>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Falix</h4>
+            <p><strong>RAM:</strong> 4.8 GB</p>
+            <p><strong>Storage:</strong> 9.7 GB</p>
+            <p><strong>Locations:</strong> <img src="flags/Germany.svg" height="24"> Germany</p>
+            <p><strong>Rating:</strong> 4.5★</p>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <li class="host-item">
+            <h4>Hosting Mit Herz</h4>
+            <p><strong>RAM:</strong> 3 GB</p>
+            <p><strong>Storage:</strong> 5 GB</p>
+            <p><strong>Locations:</strong> <img src="flags/Finland.svg" height="24"> Finland <img src="flags/Germany.svg" height="24"> Germany <img src="flags/USA.svg" height="24"> USA</p>
+            <p><strong>Rating:</strong> 4.5★</p>
+            <p><a href="#" target="_blank">Get Started</a></p>
+        </li>
+
+        <!-- Add more hosts here as needed -->
+    </ul>
+</section>
 
 <footer>
-    <div class="row">
-        <div class="col"><h5>About Us</h5>Free Minecraft Hosting List aka. FMHL</div>
-        <div class="col"><h5>Contact</h5>Discord: myuui / alt: tyug</div>
-        <div class="col"><h5>Quick Links</h5>
-            <ul>
-                <li><a href="#" style="color:white;">Home</a></li>
-                <li><a href="license.html" style="color:white;">License</a></li>
-                <li><a href="https://github.com/Myuui/Free-Minecraft-Hosts" style="color:white;">Github</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="text-center mt-3">&copy; 2025 FMHL. All rights reserved.</div>
+    &copy; 2025 FMHL. All rights reserved.
 </footer>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-
-<script>
-async function loadHosts() {
-    try {
-        const response = await fetch('getHosts.php');
-        const hostFiles = await response.json();
-        const parent = document.getElementById('host-list');
-        parent.innerHTML = '';
-
-        for (let i = 0; i < hostFiles.length; i++) {
-            const file = hostFiles[i];
-            const res = await fetch('hosts/' + file);
-            const data = await res.json();
-            
-            const rating = parseFloat(data['trustpilot-score']) || 0;
-            const iconFile = Math.round(rating*2)/2;
-            const container = document.createElement('div');
-            container.className = 'container';
-            container.dataset.location = data.locations.map(l=>l.toLowerCase()).join(' / ');
-            container.dataset.rating = rating;
-            container.dataset.cores = parseFloat((data.vcore||'0').replace('%','').trim()) || 0;
-
-            container.innerHTML = `
-                <div class="icon-box"><img src="${data.icon}" style="max-width:100px;"></div>
-                <div class="content">
-                    <div class="title fw-bold">${data.title}</div>
-                    <div class="text-line mt-2"><span>RAM:</span><span class="text-highlight ram-value">${data.ram}</span></div>
-                    <div class="text-line mt-2"><span>Storage:</span><span class="text-highlight storage-value">${data.storage}</span></div>
-                    <div class="text-line mt-2"><span>Locations:</span>${data.locations.map(l=>`<img src="flags/${l}.svg" height="27">`).join('')}</div>
-                    <div class="rating mt-2"><img src="assets/trustpilot-stars/stars-${iconFile.toString().replace('.','-')}.svg" style="width:100px;"> <span>${rating.toFixed(1)}★</span></div>
-                    <div class="btn-toolbar mt-3">
-                        <a class="btn btn-secondary me-2" href="${data.link}" target="_blank">Get Started</a>
-                        <button class="btn btn-secondary" onclick="showMore${i}()">More Info</button>
-                    </div>
-                </div>
-            `;
-            
-            window[`showMore${i}`] = function() {
-                Swal.fire({
-                    title: data.title,
-                    html: `
-                        <p><strong>CPU:</strong> ${data.vcore} (${data['cpu-model']})</p>
-                        <p><strong>Performance:</strong> ${data.performance}</p>
-                        <p><strong>Location:</strong> ${data.locations.join(' / ')}</p>
-                        <p><strong>24/7:</strong> ${data['24-7'] ? '✅' : '❌'}</p>
-                        <p><strong>Notes:</strong> ${data.notes}</p>
-                    `,
-                    showCloseButton: true,
-                    showConfirmButton: false,
-                });
-            };
-
-            parent.appendChild(container);
-        }
-
-        refreshFilter();
-    } catch(e){ console.error(e); }
-}
-
-function refreshFilter() {
-    const searchInput = document.getElementById("search-input");
-    const ramFilter = document.getElementById("ram-filter");
-    const storageFilter = document.getElementById("storage-filter");
-    const starFilter = document.getElementById("star-filter");
-    const coresFilter = document.getElementById("cores-filter");
-    const locationChecks = document.querySelectorAll(".location-check");
-
-    function parseValue(text){
-        const m = text.match(/(\d+(\.\d+)?)/);
-        return m ? parseFloat(m[1]) : 0;
-    }
-
-    function getSelectedLocations(){
-        return Array.from(locationChecks).filter(cb=>cb.checked).map(cb=>cb.value.toLowerCase());
-    }
-
-    function updateLocationDropdownText(){
-        const count = getSelectedLocations().length;
-        document.getElementById("locationDropdown").textContent = count>0 ? `${count} Selected` : "Select Locations";
-    }
-
-    function filterHosts(){
-        const containers = document.querySelectorAll(".grid-container .container");
-        const searchTerm = searchInput.value.toLowerCase();
-        const minRAM = parseFloat(ramFilter.value);
-        const minStorage = parseFloat(storageFilter.value);
-        const minStars = parseFloat(starFilter.value);
-        const minCores = parseFloat(coresFilter.value);
-        const selectedLocations = getSelectedLocations();
-
-        containers.forEach(c=>{
-            const title = c.querySelector(".title")?.textContent.toLowerCase()||"";
-            const ram = parseValue(c.querySelector(".ram-value")?.textContent);
-            const storage = parseValue(c.querySelector(".storage-value")?.textContent);
-            const rating = parseFloat(c.dataset.rating) || 0;
-            const cores = parseFloat(c.dataset.cores) || 0;
-            const locationText = c.dataset.location;
-
-            let visible = true;
-            if(searchTerm && !title.includes(searchTerm)) visible=false;
-            if(ram<minRAM) visible=false;
-            if(storage<minStorage) visible=false;
-            if(rating<minStars) visible=false;
-            if(cores<minCores) visible=false;
-            if(selectedLocations.length>0){
-                visible = selectedLocations.some(loc=>locationText.includes(loc));
-            }
-
-            c.style.display = visible ? "block" : "none";
-        });
-    }
-
-    [searchInput, ramFilter, storageFilter, starFilter, coresFilter].forEach(el=>{
-        el.addEventListener("input", filterHosts);
-        el.addEventListener("change", filterHosts);
-    });
-
-    locationChecks.forEach(cb=>{
-        cb.addEventListener("change", ()=>{
-            updateLocationDropdownText();
-            filterHosts();
-        });
-    });
-
-    updateLocationDropdownText();
-}
-
-loadHosts();
-</script>
 
 </body>
 </html>
