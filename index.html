@@ -7,8 +7,7 @@
   <style>
     body {
       font-family: 'Trebuchet MS', sans-serif;
-      background: url('https://i.imgur.com/2yKxZqM.png');
-      background-size: 128px;
+      background: #000;
       margin: 0;
       padding: 40px;
       color: #fff;
@@ -42,31 +41,15 @@
       background: #2f2f2f;
       color: #7fff00;
       text-shadow: 1px 1px #000;
-    }
-    .form-row input {
-      background: #1b1b1b;
-      color: #fff;
-      border: 1px solid #555;
-    }
-    button {
       cursor: pointer;
-      background: #228b22;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      margin-top: 10px;
-      text-transform: uppercase;
-      font-weight: bold;
     }
-    button:hover {
-      background: #2eb82e;
-    }
-    .delete-btn {
-      background: #b30000;
-    }
-    .delete-btn:hover {
-      background: #ff0000;
+    pre {
+      background: rgba(30,30,30,0.95);
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      color: #7fff00;
+      font-family: monospace;
     }
     a { color: #7fff00; }
   </style>
@@ -74,60 +57,58 @@
 <body>
   <div class="container">
     <h1>Minecraft Hosts</h1>
+    <p>Click on the column headers to sort ascending/descending. Copy and paste the rows into the table below.</p>
 
-    <div class="form-row">
-      <input id="host" placeholder="Host (example.com)" />
-      <input id="ram" placeholder="RAM (e.g. 8GB)" />
-      <input id="storage" placeholder="Storage (e.g. 50GB)" />
-      <input id="cpu" placeholder="CPU Model" />
-      <input id="notes" placeholder="Notes" />
-    </div>
-    <button onclick="addHost()">Add Host</button>
+    <h2>Example:</h2>
+    <pre>&lt;tr&gt;
+  &lt;td&gt;&lt;a href="https://play.example.com"&gt;play.example.com&lt;/a&gt;&lt;/td&gt;
+  &lt;td&gt;8 GB&lt;/td&gt;
+  &lt;td&gt;50 GB&lt;/td&gt;
+  &lt;td&gt;Ryzen 5 3600&lt;/td&gt;
+  &lt;td&gt;Good latency&lt;/td&gt;
+&lt;/tr&gt;</pre>
 
-    <table>
+    <table id="hostsTable">
       <thead>
         <tr>
-          <th>Host</th>
-          <th>RAM</th>
-          <th>Storage</th>
-          <th>CPU Model</th>
-          <th>Notes</th>
-          <th>Action</th>
+          <th onclick="sortTable(0)">Host</th>
+          <th onclick="sortTable(1)">RAM</th>
+          <th onclick="sortTable(2)">Storage</th>
+          <th onclick="sortTable(3)">CPU Model</th>
+          <th onclick="sortTable(4)">Notes</th>
         </tr>
       </thead>
-      <tbody id="tableBody"></tbody>
+      <tbody>
+        <!-- Paste your host rows here -->
+      </tbody>
     </table>
   </div>
 
   <script>
-    const tableBody = document.getElementById("tableBody");
+    let sortDirections = [true, true, true, true, true]; // true=asc, false=desc
+    function sortTable(colIndex) {
+      const table = document.getElementById("hostsTable");
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
 
-    function addHost() {
-      const host = document.getElementById("host").value.trim();
-      const ram = document.getElementById("ram").value.trim();
-      const storage = document.getElementById("storage").value.trim();
-      const cpu = document.getElementById("cpu").value.trim();
-      const notes = document.getElementById("notes").value.trim();
+      rows.sort((a, b) => {
+        let valA = a.cells[colIndex].innerText.toLowerCase();
+        let valB = b.cells[colIndex].innerText.toLowerCase();
 
-      if (!host) return alert("Host is required");
+        // convert RAM/Storage like '8 GB' or '50 GB' to numbers for sorting
+        if(colIndex === 1 || colIndex === 2){
+          valA = parseFloat(valA) || 0;
+          valB = parseFloat(valB) || 0;
+        }
 
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td><a href="https://${host}" target="_blank">${host}</a></td>
-        <td>${ram}</td>
-        <td>${storage}</td>
-        <td>${cpu}</td>
-        <td>${notes}</td>
-        <td><button class="delete-btn" onclick="this.parentElement.parentElement.remove()">Delete</button></td>
-      `;
+        if(valA < valB) return sortDirections[colIndex] ? -1 : 1;
+        if(valA > valB) return sortDirections[colIndex] ? 1 : -1;
+        return 0;
+      });
 
-      tableBody.appendChild(row);
+      sortDirections[colIndex] = !sortDirections[colIndex];
 
-      document.getElementById("host").value = "";
-      document.getElementById("ram").value = "";
-      document.getElementById("storage").value = "";
-      document.getElementById("cpu").value = "";
-      document.getElementById("notes").value = "";
+      rows.forEach(row => tbody.appendChild(row));
     }
   </script>
 </body>
