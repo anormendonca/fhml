@@ -4,111 +4,220 @@
     <meta charset="UTF-8">
     <title>Free Minecraft Hosts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body { 
-            background-color: #1f2124; 
-            color: white; 
-            font-family: Arial, sans-serif; 
+            background-color: #1a1c1f; 
+            color: #e8eaed; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             padding: 20px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+        
         a { 
-            color: #0dcaf0; 
+            color: #5dade2; 
             text-decoration: none; 
+            transition: color 0.2s ease;
         }
+        
         a:hover { 
-            color: #0ac; 
+            color: #85c1e9; 
             text-decoration: underline; 
         }
+        
         .host-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
             padding: 0;
         }
+        
         .host-card { 
-            background-color: #282b30; 
-            padding: 20px; 
-            border-radius: 12px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: linear-gradient(145deg, #2a2d32, #24272b);
+            padding: 24px; 
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             height: 100%;
             display: flex;
             flex-direction: column;
+            border: 1px solid #3a3d42;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        
         .host-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            border-color: #5dade2;
         }
+        
         .host-card h4 { 
             margin-top: 0; 
-            color: #0dcaf0; 
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+            color: #5dade2; 
+            font-size: 1.25rem;
+            margin-bottom: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
+        
         .host-card p { 
-            margin: 6px 0; 
+            margin: 8px 0; 
             font-size: 0.95rem;
+            color: #c4c7cc;
         }
-        .host-card img { 
-            vertical-align: middle; 
-            margin-right: 6px; 
+        
+        .host-card strong {
+            color: #ffffff;
+            font-weight: 500;
         }
+        
         footer { 
-            background-color: #282b30; 
-            padding: 20px; 
-            margin-top: 30px; 
-            border-radius: 12px; 
+            background-color: #2a2d32; 
+            padding: 24px; 
+            margin-top: 40px; 
+            border-radius: 16px; 
             text-align: center; 
+            border-top: 1px solid #3a3d42;
         }
+        
         .note { 
-            background-color: #2d3136; 
-            padding: 8px 12px; 
-            border-radius: 6px; 
-            margin-top: 12px; 
-            font-size: 0.85em;
-            border-left: 3px solid #0dcaf0;
+            background-color: #2f3338; 
+            padding: 12px 16px; 
+            border-radius: 10px; 
+            margin-top: 16px; 
+            font-size: 0.9em;
+            color: #b0b3b8;
+            border-left: 4px solid #5dade2;
             flex-grow: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 400;
+            line-height: 1.5;
         }
+        
         .specs-container {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
-        .get-started-btn {
-            display: inline-block;
-            background-color: #0dcaf0;
-            color: #1f2124;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-        }
-        .get-started-btn:hover {
-            background-color: #0ac;
-            color: white;
-            text-decoration: none;
-        }
+        
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            padding-top: 20px;
         }
+        
         header h1 {
-            color: #0dcaf0;
-            margin-bottom: 10px;
+            color: #5dade2;
+            margin-bottom: 12px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #5dade2, #85c1e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        
+        header p {
+            color: #b0b3b8;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        
         .tips {
-            background-color: #282b30;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
+            background: linear-gradient(145deg, #2a2d32, #24272b);
+            padding: 28px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            border: 1px solid #3a3d42;
         }
+        
         .tips h3 {
-            color: #0dcaf0;
-            margin-bottom: 15px;
+            color: #5dade2;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        
+        .tips h3:before {
+            content: "💡";
+        }
+        
         .tips ul {
-            padding-left: 20px;
+            padding-left: 24px;
         }
+        
         .tips li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            color: #c4c7cc;
+            position: relative;
+            padding-left: 8px;
+        }
+        
+        .tips li:before {
+            content: "→";
+            position: absolute;
+            left: -20px;
+            color: #5dade2;
+        }
+        
+        section h2 {
+            color: #ffffff;
+            margin-bottom: 24px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #3a3d42;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #2a2d32;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #5dade2;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #85c1e9;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .host-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            body {
+                padding: 15px;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .host-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
     </style>
 </head>
@@ -144,7 +253,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Website not fully translated to English</div>
- 
         </div>
 
         <!-- Host 2 -->
@@ -157,7 +265,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Popular choice with good performance</div>
- 
         </div>
 
         <!-- Host 3 -->
@@ -170,7 +277,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Reliable German hosting provider</div>
- 
         </div>
 
         <!-- Host 4 -->
@@ -183,7 +289,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Multiple location options available</div>
- 
         </div>
 
         <!-- Host 5 -->
@@ -197,7 +302,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Currently out of stock - orders suspended</div>
- 
         </div>
 
         <!-- Host 6 -->
@@ -211,7 +315,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Virtual currency system - Out of Stock (08/07/24)</div>
- 
         </div>
 
         <!-- Host 7 -->
@@ -225,7 +328,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">French website interface</div>
- 
         </div>
 
         <!-- Host 8 -->
@@ -239,7 +341,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Virtual currency that can be used for better hardware</div>
- 
         </div>
 
         <!-- Host 9 -->
@@ -252,7 +353,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Limited information available</div>
- 
         </div>
 
         <!-- Host 10 -->
@@ -266,7 +366,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Coming soon - Dynamic RAM allocation</div>
- 
         </div>
 
         <!-- Host 11 -->
@@ -280,7 +379,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Coming soon - High performance CPU</div>
- 
         </div>
 
         <!-- Host 12 -->
@@ -294,7 +392,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Valid CC required - Uses AMP panel</div>
- 
         </div>
 
         <!-- Host 13 -->
@@ -308,7 +405,6 @@
                 <p><strong>Panel:</strong> Unknown</p>
             </div>
             <div class="note">Only Vanilla and Snapshots Minecraft</div>
- 
         </div>
 
         <!-- Host 14 -->
@@ -322,7 +418,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No additional information available</div>
- 
         </div>
 
         <!-- Host 15 -->
@@ -335,7 +430,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Scalable hosting provider thru virtual coins</div>
- 
         </div>
 
         <!-- Host 16 -->
@@ -349,7 +443,6 @@
                 <p><strong>Panel:</strong> Unknown</p>
             </div>
             <div class="note">High performance CPU - Limited info available</div>
- 
         </div>
 
         <!-- Host 17 -->
@@ -363,7 +456,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Scalable hosting provider thru virtual coins</div>
- 
         </div>
 
         <!-- Host 18 -->
@@ -377,7 +469,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Multiple Asia locations available</div>
- 
         </div>
 
         <!-- Host 19 -->
@@ -391,7 +482,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Get servers in the discord by creating a ticket</div>
- 
         </div>
 
         <!-- Host 20 -->
@@ -405,7 +495,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Virtual currency that can be used for better hardware</div>
- 
         </div>
 
         <!-- Host 21 -->
@@ -418,7 +507,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">ALSO KNOWN AS LimeNodes</div>
- 
         </div>
 
         <!-- Host 22 -->
@@ -432,7 +520,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No additional information available</div>
- 
         </div>
 
         <!-- Host 23 -->
@@ -446,7 +533,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">New hosting service seeking for feedback</div>
- 
         </div>
 
         <!-- Host 24 -->
@@ -459,7 +545,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No additional information available</div>
- 
         </div>
 
         <!-- Host 25 -->
@@ -473,7 +558,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Virtual currency that can be used for better hardware</div>
- 
         </div>
 
         <!-- Host 26 -->
@@ -487,7 +571,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No additional information available</div>
- 
         </div>
 
         <!-- Host 27 -->
@@ -501,7 +584,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Also known as skynode.pro</div>
- 
         </div>
 
         <!-- Host 28 -->
@@ -515,7 +597,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Global locations including Japan</div>
- 
         </div>
 
         <!-- Host 29 -->
@@ -528,7 +609,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Up to 300% for CPU performance</div>
- 
         </div>
 
         <!-- Host 30 -->
@@ -542,7 +622,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No additional information available</div>
- 
         </div>
 
         <!-- Host 31 -->
@@ -555,7 +634,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Ukrainian speaking website and Discord</div>
- 
         </div>
 
         <!-- Host 32 -->
@@ -569,7 +647,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No Game Panel - Full server control</div>
- 
         </div>
 
         <!-- Host 33 -->
@@ -583,7 +660,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No Game Panel - Limited server control</div>
- 
         </div>
 
         <!-- Host 34 -->
@@ -597,7 +673,6 @@
                 <p><strong>Panel:</strong> Unknown</p>
             </div>
             <div class="note">Coming soon - Popular free host</div>
- 
         </div>
 
         <!-- Host 35 -->
@@ -610,7 +685,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No panels - Developer focused</div>
- 
         </div>
 
         <!-- Host 36 -->
@@ -623,7 +697,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Russian website interface</div>
- 
         </div>
 
         <!-- Host 37 -->
@@ -636,7 +709,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">Uses typical coin system for upgrades</div>
- 
         </div>
 
         <!-- Host 38 -->
@@ -649,7 +721,6 @@
                 <p><strong>Panel:</strong> Yes</p>
             </div>
             <div class="note">No information available</div>
- 
         </div>
     </div>
 </section>
