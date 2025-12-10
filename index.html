@@ -20,57 +20,86 @@
       <link href="css/float.css" rel="stylesheet">
       <link href="css/mobile.css" rel="stylesheet">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>
-         .text-line > span,
-         .text-line > img {
-         margin-right: 8px;
-         }
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(4, 1fr);
-         gap: 1.5rem;
-         }
-         @media only screen and (max-width: 1600px) {
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(3, 1fr);
-         grid-gap: 10px;
-         }
-         @media only screen and (max-width: 1400px) {
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(3, 1fr);
-         grid-gap: 10px;
-         }
-         @media only screen and (max-width: 1200px) {
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(2, 1fr);
-         grid-gap: 10px;
-         }
-         }
-         @media only screen and (max-width: 1000px) {
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(2, 1fr);
-         grid-gap: 10px;
-         }
-         }
-         @media only screen and (max-width: 800px) {
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(1, 1fr);
-         grid-gap: 10px;
-         }
-         }
-         @media only screen and (max-width: 600px) {
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(1, 1fr);
-         grid-gap: 10px;
-         }
-         }
-      </style>
+<style>
+  body {
+      background-color: #1e1f23;
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+  }
+
+  .markdown-body.card {
+      background-color: #282b30;
+      padding: 24px;
+      border-radius: 15px;
+      color: white;
+  }
+
+  .alert.alert-simple {
+      background-color: #2d3238 !important;
+      border: none;
+      color: white;
+  }
+
+  .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+  }
+
+  @media (max-width: 1600px) {
+      .grid-container { grid-template-columns: repeat(3,1fr); }
+  }
+  @media (max-width: 1200px) {
+      .grid-container { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 800px) {
+      .grid-container { grid-template-columns: 1fr; }
+  }
+
+  .form-control, .form-select {
+      background-color: #2d3238;
+      border: 1px solid #3a3f45;
+      color: white;
+  }
+
+  .dropdown-menu {
+      background-color: #2d3238;
+      color: white;
+  }
+
+  .btn-dark {
+      background-color: #3a3f45;
+      border: 1px solid #565a60;
+      color: white;
+  }
+
+  .btn-dark:hover {
+      background-color: #50555c;
+      color: white;
+  }
+
+  .text-highlight {
+      color: #00d4ff;
+      font-weight: bold;
+  }
+
+  .icon-box img {
+      max-width: 100px;
+      border-radius: 8px;
+  }
+
+  .container.text-white {
+      background-color: #2d3238;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+  }
+
+  .btn-toolbar .btn {
+      margin-bottom: 5px;
+  }
+</style>
+
    </head>
    <body>
       <div id="floatingElement" class="bg-dark">
